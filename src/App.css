@@ -1,0 +1,12 @@
+/* App.css: Basic global styles, you can customize further */
+body {
+  background: #f8f5f1;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  min-height: 100vh;
+  background: #f8f5f1;
+}

@@ -1,0 +1,56 @@
+/* ...existing code... */
+
+.navbar {
+  /* ...existing code... */
+  transition: background 0.3s ease, box-shadow 0.3s ease, height 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  height: 60px; /* Example: shrink navbar on scroll */
+}
+
+/* Dropdown styles */
+.nav-item.dropdown {
+  position: relative;
+}
+
+.nav-item .dropdown-toggle {
+  cursor: pointer;
+}
+
+.nav-item .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 160px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  z-index: 1000;
+  padding: 0.5em 0;
+}
+
+.nav-item.dropdown:hover .dropdown-menu,
+.nav-item.dropdown:focus-within .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu li {
+  list-style: none;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 0.5em 1em;
+  color: #333;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.dropdown-menu a:hover {
+  background: #f0f0f0;
+}
+
+/* ...existing code... */
