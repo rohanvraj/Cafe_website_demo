@@ -11,6 +11,7 @@ import LaserHairRemoval from './blog/laser-hair-removal';
 import PrpTherapy from './blog/prp-therapy';
 import SkincareRoutine from './blog/skincare-routine';
 import SunProtectionBeyondSpf from './blog/sun-protection-beyond-spf';
+import MicroneedlingGuide from './blog/microneedling-guide';
 
 // Map slugs to components
 const articleComponents: Record<string, React.ComponentType> = {
@@ -23,6 +24,7 @@ const articleComponents: Record<string, React.ComponentType> = {
   'prp-therapy': PrpTherapy,
   'skincare-routine': SkincareRoutine,
   'sun-protection-beyond-spf': SunProtectionBeyondSpf,
+  'microneedling-guide': MicroneedlingGuide,
 };
 
 const BlogArticle = () => {

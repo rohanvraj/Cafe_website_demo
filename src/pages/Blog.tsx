@@ -104,6 +104,18 @@ const Blog = () => {
   category: 'Skincare',
   tags: ['routine', 'skincare', 'daily care']
 }
+,
+{
+  id: 10,
+  title: 'Microneedling: Everything You Need to Know',
+  excerpt: 'An in-depth guide to microneedling, its benefits, procedure, and aftercare.',
+  image: 'https://images.pexels.com/photos/5863397/pexels-photo-5863397.jpeg?auto=compress&cs=tinysrgb&w=600',
+  author: 'Dr. Neha Kapoor',
+  date: '2025-08-01',
+  readTime: '6 min read',
+  category: 'Skin Treatments',
+  tags: ['microneedling', 'skincare', 'treatment']
+}
     // ...add rest of the posts here
   ];
 
@@ -117,6 +129,7 @@ const Blog = () => {
     'Sun Protection: Beyond SPF - What You Need to Know': 'sun-protection-beyond-spf',
     'PRP Therapy: The Science Behind Platelet-Rich Plasma': 'prp-therapy',
     'Skincare Routine: Building the Perfect Regimen': 'skincare-routine',
+    'Microneedling: Everything You Need to Know': 'microneedling-guide',
   };
 
   return (
