@@ -13,6 +13,7 @@ import Contact from './pages/Contact';
 import Doctors from './pages/Doctors';
 import Treatments from './pages/Treatments';
 import Blog from './pages/Blog';
+import BlogArticle from './pages/BlogArticle';
 
 import { modalBus } from './utils/modalBus';
 
@@ -46,6 +47,7 @@ function App() {
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/treatments" element={<Treatments />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogArticle />} />
           </Routes>
         </main>
         <Footer />
