@@ -1,237 +1,180 @@
 import React from 'react';
-import { Star, Award, Calendar, MapPin, Phone, GraduationCap } from 'lucide-react';
+import { modalBus } from '../utils/modalBus';
+import { Star, Award, Calendar } from 'lucide-react';
+import { useEffect } from 'react';
+
+function useFadeInOnScroll() {
+  useEffect(() => {
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const onScroll = () => {
+      fadeEls.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 60) {
+          el.classList.add('show');
+        }
+      });
+    };
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+}
 
 const Doctors = () => {
-  const doctors = [
-    {
-      id: 1,
-      name: 'Dr. Priya Sharma',
-      specialization: 'Dermatologist & Cosmetic Surgeon',
-      experience: '15+ years',
-      rating: 4.9,
-      reviews: 256,
-      image: 'https://images.pexels.com/photos/5327921/pexels-photo-5327921.jpeg?auto=compress&cs=tinysrgb&w=400',
-      qualifications: ['MBBS', 'MD Dermatology', 'Fellowship in Cosmetic Surgery'],
-      specialties: ['Laser Treatments', 'Anti-Aging', 'Acne Treatment', 'Skin Cancer'],
-      branch: 'Downtown Mumbai',
-      languages: ['English', 'Hindi', 'Marathi'],
-      bio: 'Dr. Priya Sharma is a renowned dermatologist with over 15 years of experience in treating various skin conditions. She specializes in advanced laser treatments and cosmetic procedures.'
-    },
-    {
-      id: 2,
-      name: 'Dr. Rajesh Kumar',
-      specialization: 'Hair Transplant Specialist',
-      experience: '12+ years',
-      rating: 4.8,
-      reviews: 189,
-      image: 'https://images.pexels.com/photos/6129967/pexels-photo-6129967.jpeg?auto=compress&cs=tinysrgb&w=400',
-      qualifications: ['MBBS', 'MS General Surgery', 'Fellowship in Hair Transplant'],
-      specialties: ['FUE Hair Transplant', 'FUT Technique', 'Beard Transplant', 'Eyebrow Restoration'],
-      branch: 'Downtown Mumbai',
-      languages: ['English', 'Hindi', 'Punjabi'],
-      bio: 'Dr. Rajesh Kumar is an expert in hair restoration with extensive experience in both FUE and FUT techniques. He has successfully performed over 2000 hair transplant procedures.'
-    },
-    {
-      id: 3,
-      name: 'Dr. Meera Patel',
-      specialization: 'Laser & Aesthetic Medicine',
-      experience: '10+ years',
-      rating: 4.9,
-      reviews: 178,
-      image: 'https://images.pexels.com/photos/4173239/pexels-photo-4173239.jpeg?auto=compress&cs=tinysrgb&w=400',
-      qualifications: ['MBBS', 'MD Dermatology', 'Diploma in Aesthetic Medicine'],
-      specialties: ['Laser Hair Removal', 'Skin Rejuvenation', 'Tattoo Removal', 'Scar Treatment'],
-      branch: 'Andheri West',
-      languages: ['English', 'Hindi', 'Gujarati'],
-      bio: 'Dr. Meera Patel specializes in advanced laser treatments and aesthetic medicine. She is known for her precision in laser procedures and personalized treatment approaches.'
-    },
-    {
-      id: 4,
-      name: 'Dr. Arjun Singh',
-      specialization: 'Anti-Aging Specialist',
-      experience: '8+ years',
-      rating: 4.7,
-      reviews: 143,
-      image: 'https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=400',
-      qualifications: ['MBBS', 'MD Dermatology', 'Certificate in Anti-Aging Medicine'],
-      specialties: ['Botox', 'Dermal Fillers', 'Thread Lift', 'Chemical Peels'],
-      branch: 'Andheri West',
-      languages: ['English', 'Hindi'],
-      bio: 'Dr. Arjun Singh is dedicated to helping patients achieve a youthful appearance through minimally invasive anti-aging treatments. He stays updated with the latest techniques in aesthetic medicine.'
-    },
-    {
-      id: 5,
-      name: 'Dr. Kavya Reddy',
-      specialization: 'Pediatric Dermatologist',
-      experience: '9+ years',
-      rating: 4.8,
-      reviews: 167,
-      image: 'https://images.pexels.com/photos/4173258/pexels-photo-4173258.jpeg?auto=compress&cs=tinysrgb&w=400',
-      qualifications: ['MBBS', 'MD Dermatology', 'Fellowship in Pediatric Dermatology'],
-      specialties: ['Childhood Eczema', 'Birthmarks', 'Pediatric Acne', 'Skin Allergies'],
-      branch: 'Bandra East',
-      languages: ['English', 'Hindi', 'Telugu'],
-      bio: 'Dr. Kavya Reddy specializes in treating skin conditions in children and adolescents. She has a gentle approach and extensive experience in pediatric dermatology.'
-    },
-    {
-      id: 6,
-      name: 'Dr. Sameer Shah',
-      specialization: 'Cosmetic Dermatologist',
-      experience: '11+ years',
-      rating: 4.8,
-      reviews: 201,
-      image: 'https://images.pexels.com/photos/5327656/pexels-photo-5327656.jpeg?auto=compress&cs=tinysrgb&w=400',
-      qualifications: ['MBBS', 'MD Dermatology', 'Fellowship in Cosmetic Dermatology'],
-      specialties: ['Skin Whitening', 'Pigmentation', 'Melasma', 'Dark Circles'],
-      branch: 'Bandra East',
-      languages: ['English', 'Hindi', 'Gujarati'],
-      bio: 'Dr. Sameer Shah has extensive experience in cosmetic dermatology with a focus on skin brightening and pigmentation treatments. He has helped thousands of patients achieve their desired skin tone.'
-    }
-  ];
+  useFadeInOnScroll();
+  const doctorsByBranch = {
+    'Downtown Mumbai': [
+      {
+        id: 1,
+        name: 'Dr. Priya Sharma',
+        specialization: 'Dermatologist & Cosmetic Surgeon',
+        experience: '15+ years',
+        rating: 4.9,
+        image: 'https://images.pexels.com/photos/5327921/pexels-photo-5327921.jpeg?auto=compress&cs=tinysrgb&w=400',
+        qualifications: ['MBBS', 'MD Dermatology', 'Fellowship in Cosmetic Surgery'],
+      },
+      {
+        id: 2,
+        name: 'Dr. Rajesh Kumar',
+        specialization: 'Hair Transplant Specialist',
+        experience: '12+ years',
+        rating: 4.8,
+        image: 'https://images.pexels.com/photos/6129967/pexels-photo-6129967.jpeg?auto=compress&cs=tinysrgb&w=400',
+        qualifications: ['MBBS', 'MS General Surgery', 'Fellowship in Hair Transplant'],
+      },
+    ],
+    'Andheri West': [
+      {
+        id: 3,
+        name: 'Dr. Meera Patel',
+        specialization: 'Laser & Aesthetic Medicine',
+        experience: '10+ years',
+        rating: 4.9,
+        image: 'https://images.pexels.com/photos/4173239/pexels-photo-4173239.jpeg?auto=compress&cs=tinysrgb&w=400',
+        qualifications: ['MBBS', 'MD Dermatology', 'Diploma in Aesthetic Medicine'],
+      },
+      {
+        id: 4,
+        name: 'Dr. Arjun Singh',
+        specialization: 'Anti-Aging Specialist',
+        experience: '8+ years',
+        rating: 4.7,
+        image: 'https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=400',
+        qualifications: ['MBBS', 'MD Dermatology', 'Certificate in Anti-Aging Medicine'],
+      },
+    ],
+    'Bandra East': [
+      {
+        id: 5,
+        name: 'Dr. Kavya Reddy',
+        specialization: 'Pediatric Dermatologist',
+        experience: '9+ years',
+        rating: 4.8,
+        image: 'https://images.pexels.com/photos/4173258/pexels-photo-4173258.jpeg?auto=compress&cs=tinysrgb&w=400',
+        qualifications: ['MBBS', 'MD Dermatology', 'Fellowship in Pediatric Dermatology'],
+      },
+    ],
+  };
 
   return (
-    <div className="pt-16">
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+    <section className="py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             Meet Our Expert Doctors
-          </h1>
+          </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Our team of highly qualified and experienced doctors are committed to providing 
-            you with the best possible care using the latest medical techniques and technologies.
+            Our team of highly qualified and experienced doctors are dedicated to providing you with the best possible care.
           </p>
         </div>
-      </section>
 
-      {/* Doctors Grid */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {doctors.map((doctor) => (
-              <div
-                key={doctor.id}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden"
-              >
-                <div className="md:flex">
-                  {/* Doctor Image */}
-                  <div className="md:flex-shrink-0 relative">
-                    <img
-                      className="h-48 w-full object-cover md:h-full md:w-48"
-                      src={doctor.image}
-                      alt={doctor.name}
-                    />
-                    <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full shadow-lg">
-                      <div className="flex items-center space-x-1">
-                        <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                        <span className="text-sm font-semibold text-gray-900">{doctor.rating}</span>
-                      </div>
-                    </div>
-                  </div>
+        <div className="space-y-12">
+          {Object.entries(doctorsByBranch).map(([branchName, doctors]) => (
+            <div key={branchName}>
+              <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+                {branchName}
+              </h3>
 
-                  {/* Doctor Info */}
-                  <div className="p-6 flex-1">
-                    <div className="space-y-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900">{doctor.name}</h3>
-                        <p className="text-blue-600 font-medium">{doctor.specialization}</p>
-                      </div>
-
-                      <div className="flex items-center space-x-4 text-sm text-gray-600">
-                        <div className="flex items-center space-x-1">
-                          <Award className="w-4 h-4 text-orange-600" />
-                          <span>{doctor.experience}</span>
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <MapPin className="w-4 h-4 text-blue-600" />
-                          <span>{doctor.branch}</span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center space-x-2">
+              <div className="flex justify-center">
+                <div className="grid gap-8 place-items-center"
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    maxWidth: '1100px',
+                    width: '100%',
+                  }}
+                >
+                {doctors.map((doctor) => (
+                  <div
+                    key={doctor.id}
+                    className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 overflow-hidden mx-auto"
+                  >
+                    <div className="relative">
+                      <img
+                        src={doctor.image}
+                        alt={doctor.name}
+                        className="w-full h-64 object-cover"
+                      />
+                      <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full shadow-lg">
                         <div className="flex items-center space-x-1">
                           <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                          <span className="text-sm font-medium">{doctor.rating}</span>
-                        </div>
-                        <span className="text-sm text-gray-500">({doctor.reviews} reviews)</span>
-                      </div>
-
-                      <div>
-                        <h4 className="text-sm font-semibold text-gray-900 mb-2">Specialties:</h4>
-                        <div className="flex flex-wrap gap-1">
-                          {doctor.specialties.slice(0, 3).map((specialty, index) => (
-                            <span
-                              key={index}
-                              className="bg-blue-50 text-blue-700 px-2 py-1 rounded text-xs"
-                            >
-                              {specialty}
-                            </span>
-                          ))}
-                          {doctor.specialties.length > 3 && (
-                            <span className="text-xs text-gray-500">
-                              +{doctor.specialties.length - 3} more
-                            </span>
-                          )}
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="text-sm font-semibold text-gray-900 mb-2">Qualifications:</h4>
-                        <div className="flex items-center space-x-2">
-                          <GraduationCap className="w-4 h-4 text-green-600" />
-                          <span className="text-sm text-gray-700">
-                            {doctor.qualifications.join(', ')}
+                          <span className="text-sm font-semibold text-gray-900">
+                            {doctor.rating}
                           </span>
                         </div>
                       </div>
+                    </div>
 
-                      <p className="text-sm text-gray-600 leading-relaxed">
-                        {doctor.bio}
-                      </p>
+                    <div className="p-6 space-y-4">
+                      <div>
+                        <h4 className="text-xl font-bold text-gray-900">{doctor.name}</h4>
+                        <p className="text-blue-600 font-medium">{doctor.specialization}</p>
+                      </div>
 
-                      <div className="flex space-x-3 pt-4">
-                        <button className="flex-1 bg-blue-600 text-white px-4 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2">
+                      <div className="flex items-center space-x-3">
+                        <Award className="w-5 h-5 text-orange-600" />
+                        <span className="text-gray-700 text-sm">{doctor.experience} Experience</span>
+                      </div>
+
+                      <div className="space-y-2">
+                        <h5 className="text-sm font-semibold text-gray-900">Qualifications:</h5>
+                        <div className="flex flex-wrap gap-2">
+                          {doctor.qualifications.map((qualification, index) => (
+                            <span
+                              key={index}
+                              className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs"
+                            >
+                              {qualification}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="pt-4 space-y-2">
+                        <button
+                          onClick={() => {
+                            console.log("📅 Book Appointment clicked for", doctor.name);
+                            modalBus.openModal();
+                          }}
+                          className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2"
+                        >
                           <Calendar className="w-4 h-4" />
                           <span>Book Appointment</span>
                         </button>
-                        <button className="flex-1 border-2 border-blue-600 text-blue-600 px-4 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                        <button className="w-full border-2 border-blue-600 text-blue-600 py-3 px-4 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
                           View Profile
                         </button>
                       </div>
                     </div>
                   </div>
+                ))}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Ready to Consult with Our Experts?
-          </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Book an appointment with any of our qualified doctors for personalized treatment plans.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2">
-              <Calendar className="w-5 h-5" />
-              <span>Book Appointment</span>
-            </button>
-            <a
-              href="tel:+919876543210"
-              className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center justify-center space-x-2"
-            >
-              <Phone className="w-5 h-5" />
-              <span>Call Now</span>
-            </a>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 

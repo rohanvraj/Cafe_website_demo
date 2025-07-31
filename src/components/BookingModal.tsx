@@ -1,3 +1,5 @@
+// src/components/BookingModal.tsx
+
 import React, { useState } from 'react';
 import { X, Calendar, User, Phone, Mail, MessageSquare } from 'lucide-react';
 
@@ -20,7 +22,6 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Dummy function - will be replaced with Google Sheets integration
     console.log('Booking data:', formData);
     alert('Appointment request submitted! We will contact you shortly to confirm.');
     setFormData({
@@ -36,7 +37,9 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
     onClose();
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -70,6 +73,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Name */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
                 <User className="w-4 h-4 inline mr-2" />
@@ -86,6 +90,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               />
             </div>
 
+            {/* Phone */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
                 <Phone className="w-4 h-4 inline mr-2" />
@@ -102,6 +107,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               />
             </div>
 
+            {/* Email */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
                 <Mail className="w-4 h-4 inline mr-2" />
@@ -117,6 +123,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               />
             </div>
 
+            {/* Date */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
                 Preferred Date *
@@ -132,6 +139,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               />
             </div>
 
+            {/* Time */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
                 Preferred Time
@@ -154,6 +162,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               </select>
             </div>
 
+            {/* Treatment */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
                 Treatment Interest
@@ -176,6 +185,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
+          {/* Branch */}
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">
               Preferred Branch
@@ -193,6 +203,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
             </select>
           </div>
 
+          {/* Message */}
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">
               <MessageSquare className="w-4 h-4 inline mr-2" />
@@ -208,6 +219,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
             ></textarea>
           </div>
 
+          {/* Buttons */}
           <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-4">
             <button
               type="submit"

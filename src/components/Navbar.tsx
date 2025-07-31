@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Calendar } from 'lucide-react';
+import { modalBus } from '../utils/modalBus';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +32,11 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+         <Link
+  to="/"
+  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+  className="flex items-center space-x-2"
+>
             <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
               <span className="text-white font-bold text-sm">HC</span>
             </div>
@@ -44,6 +49,7 @@ const Navbar = () => {
               <Link
                 key={link.to}
                 to={link.to}
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className={`text-sm font-medium transition-colors hover:text-blue-600 ${
                   location.pathname === link.to ? 'text-blue-600' : 'text-gray-700'
                 }`}
@@ -62,10 +68,13 @@ const Navbar = () => {
               <Phone className="w-4 h-4" />
               <span>+91 98765 43210</span>
             </a>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-blue-700 transition-colors flex items-center space-x-2">
-              <Calendar className="w-4 h-4" />
-              <span>Book Appointment</span>
-            </button>
+            <button
+  onClick={() => modalBus.openModal()}
+  className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-blue-700 transition-colors flex items-center space-x-2"
+>
+  <Calendar className="w-4 h-4" />
+  <span>Book Appointment</span>
+</button>
           </div>
 
           {/* Mobile menu button */}
@@ -85,7 +94,10 @@ const Navbar = () => {
                 <Link
                   key={link.to}
                   to={link.to}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
                   className={`text-sm font-medium transition-colors hover:text-blue-600 ${
                     location.pathname === link.to ? 'text-blue-600' : 'text-gray-700'
                   }`}
@@ -101,10 +113,13 @@ const Navbar = () => {
                   <Phone className="w-4 h-4" />
                   <span>+91 98765 43210</span>
                 </a>
-                <button className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-blue-700 transition-colors flex items-center space-x-2 w-fit">
-                  <Calendar className="w-4 h-4" />
-                  <span>Book Appointment</span>
-                </button>
+                <button
+  onClick={() => modalBus.openModal()}
+  className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-blue-700 transition-colors flex items-center space-x-2 w-fit"
+>
+  <Calendar className="w-4 h-4" />
+  <span>Book Appointment</span>
+</button>
               </div>
             </div>
           </div>

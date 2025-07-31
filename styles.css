@@ -1,3 +1,25 @@
+/* Fade-in animation for sections and cards */
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+}
+.fade-in.show {
+  opacity: 1;
+  transform: none;
+}
+/* Navbar glassmorphism and scroll animation */
+nav {
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(12px);
+  transition: background 0.3s cubic-bezier(.4,0,.2,1), box-shadow 0.3s cubic-bezier(.4,0,.2,1), backdrop-filter 0.3s cubic-bezier(.4,0,.2,1);
+  box-shadow: none;
+}
+nav.scrolled {
+  background: rgba(255,255,255,0.85);
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
+  backdrop-filter: blur(18px);
+}
 /* ...existing code... */
 
 .navbar {

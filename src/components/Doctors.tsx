@@ -1,7 +1,9 @@
+// pages/Doctors.tsx
 import React from 'react';
+import { modalBus } from '../utils/modalBus';
 import { Star, Award, Calendar } from 'lucide-react';
 
-const DoctorsSection = () => {
+const Doctors = () => {
   const doctorsByBranch = {
     'Downtown Mumbai': [
       {
@@ -11,7 +13,7 @@ const DoctorsSection = () => {
         experience: '15+ years',
         rating: 4.9,
         image: 'https://images.pexels.com/photos/5327921/pexels-photo-5327921.jpeg?auto=compress&cs=tinysrgb&w=400',
-        qualifications: ['MBBS', 'MD Dermatology', 'Fellowship in Cosmetic Surgery']
+        qualifications: ['MBBS', 'MD Dermatology', 'Fellowship in Cosmetic Surgery'],
       },
       {
         id: 2,
@@ -20,8 +22,8 @@ const DoctorsSection = () => {
         experience: '12+ years',
         rating: 4.8,
         image: 'https://images.pexels.com/photos/6129967/pexels-photo-6129967.jpeg?auto=compress&cs=tinysrgb&w=400',
-        qualifications: ['MBBS', 'MS General Surgery', 'Fellowship in Hair Transplant']
-      }
+        qualifications: ['MBBS', 'MS General Surgery', 'Fellowship in Hair Transplant'],
+      },
     ],
     'Andheri West': [
       {
@@ -31,7 +33,7 @@ const DoctorsSection = () => {
         experience: '10+ years',
         rating: 4.9,
         image: 'https://images.pexels.com/photos/4173239/pexels-photo-4173239.jpeg?auto=compress&cs=tinysrgb&w=400',
-        qualifications: ['MBBS', 'MD Dermatology', 'Diploma in Aesthetic Medicine']
+        qualifications: ['MBBS', 'MD Dermatology', 'Diploma in Aesthetic Medicine'],
       },
       {
         id: 4,
@@ -40,8 +42,8 @@ const DoctorsSection = () => {
         experience: '8+ years',
         rating: 4.7,
         image: 'https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=400',
-        qualifications: ['MBBS', 'MD Dermatology', 'Certificate in Anti-Aging Medicine']
-      }
+        qualifications: ['MBBS', 'MD Dermatology', 'Certificate in Anti-Aging Medicine'],
+      },
     ],
     'Bandra East': [
       {
@@ -51,9 +53,9 @@ const DoctorsSection = () => {
         experience: '9+ years',
         rating: 4.8,
         image: 'https://images.pexels.com/photos/4173258/pexels-photo-4173258.jpeg?auto=compress&cs=tinysrgb&w=400',
-        qualifications: ['MBBS', 'MD Dermatology', 'Fellowship in Pediatric Dermatology']
-      }
-    ]
+        qualifications: ['MBBS', 'MD Dermatology', 'Fellowship in Pediatric Dermatology'],
+      },
+    ],
   };
 
   return (
@@ -74,7 +76,7 @@ const DoctorsSection = () => {
               <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
                 {branchName}
               </h3>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {doctors.map((doctor) => (
                   <div
@@ -90,7 +92,9 @@ const DoctorsSection = () => {
                       <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full shadow-lg">
                         <div className="flex items-center space-x-1">
                           <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                          <span className="text-sm font-semibold text-gray-900">{doctor.rating}</span>
+                          <span className="text-sm font-semibold text-gray-900">
+                            {doctor.rating}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -121,7 +125,10 @@ const DoctorsSection = () => {
                       </div>
 
                       <div className="pt-4 space-y-2">
-                        <button className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2">
+                        <button
+                          onClick={() => modalBus.openModal()}
+                          className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2"
+                        >
                           <Calendar className="w-4 h-4" />
                           <span>Book Appointment</span>
                         </button>
@@ -141,4 +148,4 @@ const DoctorsSection = () => {
   );
 };
 
-export default DoctorsSection;
+export default Doctors;
