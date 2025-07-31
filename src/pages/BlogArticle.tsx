@@ -12,6 +12,7 @@ import PrpTherapy from './blog/prp-therapy';
 import SkincareRoutine from './blog/skincare-routine';
 import SunProtectionBeyondSpf from './blog/sun-protection-beyond-spf';
 import MicroneedlingGuide from './blog/microneedling-guide';
+import ChemicalVsMineralSunscreens from './blog/chemical-sunscreens-vs-mineral-sunscreens';
 
 // Map slugs to components
 const articleComponents: Record<string, React.ComponentType> = {
@@ -25,6 +26,7 @@ const articleComponents: Record<string, React.ComponentType> = {
   'skincare-routine': SkincareRoutine,
   'sun-protection-beyond-spf': SunProtectionBeyondSpf,
   'microneedling-guide': MicroneedlingGuide,
+ 'chemical-sunscreens-vs-mineral-sunscreens': ChemicalVsMineralSunscreens,
 };
 
 const BlogArticle = () => {

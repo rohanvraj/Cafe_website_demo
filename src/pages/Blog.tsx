@@ -115,6 +115,18 @@ const Blog = () => {
   readTime: '6 min read',
   category: 'Skin Treatments',
   tags: ['microneedling', 'skincare', 'treatment']
+},
+
+{
+  id: 11,
+  title: 'Chemical vs Mineral Sunscreens: Which is Better?',
+  excerpt: 'A comparison of chemical and mineral sunscreens to help you choose the right one for your skin.',
+  image: 'https://images.pexels.com/photos/1231231/pexels-photo-1231231.jpeg?auto=compress&cs=tinysrgb&w=600',
+  author: 'Dr. Radhika Menon',
+  date: '2025-08-05',
+  readTime: '6 min read',
+  category: 'Sun Protection',
+  tags: ['sunscreen', 'skincare', 'protection']
 }
     // ...add rest of the posts here
   ];
@@ -130,6 +142,7 @@ const Blog = () => {
     'PRP Therapy: The Science Behind Platelet-Rich Plasma': 'prp-therapy',
     'Skincare Routine: Building the Perfect Regimen': 'skincare-routine',
     'Microneedling: Everything You Need to Know': 'microneedling-guide',
+    'Chemical vs Mineral Sunscreens: Which is Better?': 'chemical-sunscreens-vs-mineral-sunscreens',
   };
 
   return (
