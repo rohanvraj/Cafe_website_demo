@@ -1,5 +1,3 @@
-// src/components/BookingModal.tsx
-
 import React, { useState } from 'react';
 import { X, Calendar, User, Phone, Mail, MessageSquare } from 'lucide-react';
 
@@ -9,41 +7,29 @@ interface BookingModalProps {
 }
 
 const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    date: '',
-    time: '',
-    treatment: '',
-    branch: '',
-    message: ''
-  });
+  const [result, setResult] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Booking data:', formData);
-    alert('Appointment request submitted! We will contact you shortly to confirm.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      date: '',
-      time: '',
-      treatment: '',
-      branch: '',
-      message: ''
-    });
-    onClose();
-  };
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setResult("Sending...");
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
+    const formData = new FormData(event.currentTarget);
+    formData.append("access_key", "c122865a-cfeb-4186-8229-c29b1a1ad584"); // ← replace this later
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData,
     });
+
+    const data = await response.json();
+
+    if (data.success) {
+      setResult("Form submitted successfully!");
+      event.currentTarget.reset();
+      setTimeout(onClose, 2000); // Close modal after success
+    } else {
+      setResult("Something went wrong. Please try again.");
+    }
   };
 
   if (!isOpen) return null;
@@ -73,7 +59,6 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Name */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
                 <User className="w-4 h-4 inline mr-2" />
@@ -82,15 +67,12 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               <input
                 type="text"
                 name="name"
-                value={formData.name}
-                onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
                 placeholder="Enter your full name"
               />
             </div>
 
-            {/* Phone */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
                 <Phone className="w-4 h-4 inline mr-2" />
@@ -99,15 +81,12 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               <input
                 type="tel"
                 name="phone"
-                value={formData.phone}
-                onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
                 placeholder="+91 98765 43210"
               />
             </div>
 
-            {/* Email */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
                 <Mail className="w-4 h-4 inline mr-2" />
@@ -116,14 +95,11 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               <input
                 type="email"
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
                 placeholder="your.email@example.com"
               />
             </div>
 
-            {/* Date */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
                 Preferred Date *
@@ -131,24 +107,19 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               <input
                 type="date"
                 name="date"
-                value={formData.date}
-                onChange={handleChange}
                 required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
                 min={new Date().toISOString().split('T')[0]}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
               />
             </div>
 
-            {/* Time */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
                 Preferred Time
               </label>
               <select
                 name="time"
-                value={formData.time}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
               >
                 <option value="">Select time</option>
                 <option value="09:00">9:00 AM</option>
@@ -162,16 +133,13 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               </select>
             </div>
 
-            {/* Treatment */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
                 Treatment Interest
               </label>
               <select
                 name="treatment"
-                value={formData.treatment}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
               >
                 <option value="">Select treatment</option>
                 <option value="acne">Acne Treatment</option>
@@ -185,16 +153,13 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Branch */}
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">
               Preferred Branch
             </label>
             <select
               name="branch"
-              value={formData.branch}
-              onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
             >
               <option value="">Select branch</option>
               <option value="downtown">Downtown Mumbai</option>
@@ -203,7 +168,6 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
             </select>
           </div>
 
-          {/* Message */}
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">
               <MessageSquare className="w-4 h-4 inline mr-2" />
@@ -211,15 +175,12 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
             </label>
             <textarea
               name="message"
-              value={formData.message}
-              onChange={handleChange}
               rows={4}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none"
               placeholder="Any specific concerns or questions..."
             ></textarea>
           </div>
 
-          {/* Buttons */}
           <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-4">
             <button
               type="submit"
@@ -236,6 +197,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               Cancel
             </button>
           </div>
+
+          <p className="text-center text-sm text-gray-500">{result}</p>
         </form>
       </div>
     </div>
