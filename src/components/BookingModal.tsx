@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { X, Calendar, User, Phone, Mail, MessageSquare } from 'lucide-react';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -8,6 +10,16 @@ interface BookingModalProps {
 
 const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
   const [result, setResult] = useState("");
+  const [formData, setFormData] = useState({
+  name: '',
+  email: '',
+  phone: '',
+  date: '',
+  time: '',
+  treatment: '',
+  branch: '',
+  message: ''
+});
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -65,12 +77,14 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
                 Full Name *
               </label>
               <input
-                type="text"
-                name="name"
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
-                placeholder="Enter your full name"
-              />
+  type="text"
+  name="name"
+  value={formData.name}
+  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+  required
+  className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+  placeholder="Enter your full name"
+/>
             </div>
 
             <div className="space-y-2">
@@ -104,13 +118,18 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               <label className="block text-sm font-medium text-gray-700">
                 Preferred Date *
               </label>
-              <input
-                type="date"
-                name="date"
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg"
-                min={new Date().toISOString().split('T')[0]}
-              />
+              <DatePicker
+  selected={formData.date ? new Date(formData.date) : null}
+  onChange={(date: Date | null) => {
+    setFormData({ ...formData, date: date?.toISOString().split('T')[0] || '' });
+  }}
+  className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+  placeholderText="Select date"
+  minDate={new Date()}
+  dateFormat="yyyy-MM-dd"
+  required
+  closeOnScroll={true}
+/>
             </div>
 
             <div className="space-y-2">
